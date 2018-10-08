@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include layouts/head %>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      $(document).ready(() => {
+        const socket = io();
+
+        $('#message-form').submit(() => {
+          var $msg = $('#message');
+
+          if($msg.val() != '') {
+            var time = new Date($.now());
+            socket.emit('chat message', {from: $('#username').val(), message: $msg.val(), time: `${time.getHours()}:${time.getMinutes()}`});
+            $msg.val('');
+          }
+          return false;
+        });
+
+        socket.on('chat message', function(msg){
+
+          if(msg.from == $('#username').val()) {
+            $('.chat').append(`
+                <div class="row">
+                  <div class="col">
+                    <div class="float-right align-content-end">
+                      <h6 class="ml-1">${msg.from}</h6>
+                      <div class="p-2 rounded shadow" style="width: max-content; width: -moz-max-content; max-width: 400px; overflow-x: auto; background-color: #007bff; color: white">${msg.message}</div>
+                      <small>Elküldve ekkor: ${msg.time}</small>
+                    </div>
+                  </div>
+                </div>
+              `);
+          } else {
+            $('.chat').append(`
+                <div class="row">
+                  <div class="col">
+                    <h6 class="ml-1">${msg.from}</h6>
+                    <div class="m-2 p-2 rounded shadow" style="width: max-content; width: -moz-max-content; background-color: green; color: white">${msg.message}</div>
+                    <small>Elküldve ekkor: ${msg.time}</small>
+                  </div>
+                </div>
+              `);
+          }
+          $('.chat').scrollTop($('.chat').prop('scrollHeight'));
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <% include layouts/header %>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col">
+          <div class="chat shadow container" style="overflow-y: scroll; overflow-x: auto"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <form id="message-form" class="form mt-2" action="" method="post">
+            <div class="row">
+              <input id="username" type="hidden" name="username" value="<%= user.username %>">
+              <div class="col">
+                <input id="message" class="form-control w-100" type="text" name="message" placeholder="Write the message here...">
+              </div>
+              <div class="col-1">
+                <input class="btn btn-primary float-right w-100" type="submit" value="Send">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <% include layouts/footer %>
+  </body>
+</html>
