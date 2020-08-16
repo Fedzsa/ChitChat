@@ -73,22 +73,3 @@ io.on('connection', (socket) => {
 server.listen(process.env.APP_PORT, () => {
   console.log(`App listening in port ${appConfig.APP_PORT}...`)
 });
-
-// The function handles the authentication
-/* function isAuthenticated(req, res, next) {
-
-  // Check the user is authenticated
-  if(req.isAuthenticated())
-    return next();
-
-  // If the user isn't authenticate then we send to the login page
-  res.redirect('/login');
-} */
-
-/* function isLoggedIn(req, res, next) {
-
-  if(req.isAuthenticated())
-    res.redirect('/home');
-
-  return next();
-} */
