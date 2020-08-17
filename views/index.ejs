@@ -49,31 +49,48 @@
     </script>
   </head>
   <body>
-    <%- include('layouts/header') %>
+      <%- include('layouts/header') %>
 
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col">
-          <div class="chat shadow container" style="overflow-y: scroll; overflow-x: auto"></div>
+      <div id="friend-list-panel" class="friend-list">
+        <div id="list-tab" class="list-group list-group-horizontal" role="tablist">
+          <a href="#list-friends" class="list-group-item list-group-item-action active fas fa-user" data-toggle="list" role="tab" aria-controls="friends"></a>
+          <a href="#add-friend" class="list-group-item list-group-item-action fas fa-user-plus" data-toggle="list" role="tab" aria-controls="add-friend"></a>
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <form id="message-form" class="form mt-2" action="" method="post">
-            <div class="row">
-              <input id="username" type="hidden" name="username" value="<%= currentUser.username %>">
-              <div class="col">
-                <input id="message" class="form-control w-100" type="text" name="message" placeholder="Write the message here...">
-              </div>
-              <div class="col-1">
-                <input class="btn btn-primary float-right w-100" type="submit" value="Send">
-              </div>
+
+        <div id="nav-tabContent" class="tab-content">
+          <div id="list-friends" class="tab-pane fade show active" role="tabpanel" aria-labelledby="list-friends-list">
+            <div id="search-box" class="search-box">
+              <i class="fas fa-search"></i>
+              <input id="search-friend-input" type="text" name="search" placeholder="Search">
             </div>
-          </form>
+            <div>
+              <ul>
+                <% friends.forEach((value) => { %>
+                  <li class="friend-item"><%= value.username %></li>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+
+          <div id="add-friend" class="tab-pane fade" role="tabpanel" aria-labelledby="list-add-friend">
+            <div id="search-box" class="search-box">
+              <i class="fas fa-search"></i>
+              <input id="search-new-friend-input" type="text" name="search" placeholder="Search">
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+  
+      <main>
+        <div class="container-fluid h-100">
+          <div class="row h-100">
+            <div class="col">
+            </div>
+          </div>
+        </div>
+      </main>
 
+    <script src="/js/index.js"></script>
     <%- include('layouts/footer') %>
   </body>
 </html>

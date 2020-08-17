@@ -49,6 +49,8 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error');
   // If user logged in then the variable gets the user
   res.locals.currentUser = req.user || null;
+
+  res.locals.fontAwesomeUrl = appConfig.FONT_AWESOME_URL
   next();
 });
 
