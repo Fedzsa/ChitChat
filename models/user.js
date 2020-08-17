@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.hasMany(models.Message);
       User.belongsToMany(models.Room, { through: models.UsersRooms });
+      User.belongsToMany(models.User, { through: models.Friend, foreignKey: 'userId', otherKey: 'friendId', as: 'Friends' });
       User.hasMany(models.Friend, { foreignKey: 'userId', as: 'User' });
       User.hasMany(models.Friend, { foreignKey: 'friendId', as: 'Friend' });
     }
