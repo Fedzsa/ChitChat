@@ -81,7 +81,15 @@
                     <% } else { %>
                       <ul id="friend-request-list">
                         <% friendRequests.forEach((value) => { %>
-                          <li class="friend-item"><%= value.username %></li>
+                          <li class="friend-item">
+                            <span>
+                              <%= value.username %>
+                            </span>
+                            <div>
+                              <button class="btn btn-success">Accept</button>
+                              <button class="btn btn-danger">Decline</button>
+                            </div>
+                          </li>
                         <% }) %>
                       </ul>
                     <% } %>
@@ -105,7 +113,9 @@
                     <% } else { %>
                       <ul id="friend-list">
                         <% friends.forEach((value) => { %>
-                          <li class="friend-item"><%= value.username %></li>
+                          <li class="friend-item">
+                            <%= value.username %>
+                          </li>
                         <% }) %>
                       </ul>
                     <% } %>
