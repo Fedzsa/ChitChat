@@ -86,8 +86,8 @@
                               <%= value.username %>
                             </span>
                             <div>
-                              <button class="btn btn-success">Accept</button>
-                              <button class="btn btn-danger">Decline</button>
+                              <button class="btn btn-success" data-user-id="<%= value.id %>" onclick="acceptRequest(event)">Accept</button>
+                              <button class="btn btn-danger" data-user-id="<%= value.id %>">Decline</button>
                             </div>
                           </li>
                         <% }) %>
