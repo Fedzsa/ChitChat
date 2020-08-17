@@ -28,7 +28,40 @@ function createUserList(users) {
 
     users.forEach((value) => {
         let li = document.createElement('li');
+        li.classList.add('list-item');
         li.innerHTML = value.username;
+        li.appendChild(createAddFriendButton(value.id));
         userList.appendChild(li);
     });
+}
+
+function createAddFriendButton(userId) {
+    let button = document.createElement('button');
+    button.setAttribute('data-user-id', userId);
+    button.setAttribute('onclick', 'addFriend(event)');
+    button.classList.add('btn');
+    button.classList.add('btn-success');
+    button.classList.add('fas');
+    button.classList.add('fa-plus');
+    return button;
+}
+
+function addFriend(event) {
+    let userId = event.target.getAttribute('data-user-id');
+
+    fetch('/friends/request', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: userId
+        })
+    })
+    .then(response => {
+        if(response.ok) {
+            console.log('ok');
+        }
+    })
+    .catch(error => console.log(`Error: ${error}`));
 }
