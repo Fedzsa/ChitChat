@@ -5,7 +5,7 @@ exports.index = async (req, res, next) => {
     let friends = await User.findAll({
         include: {
             model: Friend, 
-            as: 'Me',
+            as: 'Friend',
             where: {
                 userId: req.user.id,
                 status: 1
