@@ -63,20 +63,19 @@
               <i class="fas fa-search"></i>
               <input id="search-friend-input" type="text" name="search" placeholder="Search">
             </div>
-            <div>
-              <ul>
-                <% friends.forEach((value) => { %>
-                  <li class="friend-item"><%= value.username %></li>
-                <% }) %>
-              </ul>
-            </div>
+            <ul id="friend-list">
+              <% friends.forEach((value) => { %>
+                <li class="friend-item"><%= value.username %></li>
+              <% }) %>
+            </ul>
           </div>
 
           <div id="add-friend" class="tab-pane fade" role="tabpanel" aria-labelledby="list-add-friend">
             <div id="search-box" class="search-box">
               <i class="fas fa-search"></i>
-              <input id="search-new-friend-input" type="text" name="search" placeholder="Search">
+              <input id="search-new-friend-input" type="text" name="search" placeholder="Search" autocomplete="off">
             </div>
+            <ul id="user-list"></ul>
           </div>
         </div>
       </div>
