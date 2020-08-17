@@ -1,11 +1,12 @@
 const { Friend } = require('../models/index');
 const sequelize = require('../models/index').sequelize;
+const friendStatus = require('../helper/friendStatuses');
 
 exports.storeFriendRequest = async (req, res, next) => {
     await Friend.create({
         userId: req.user.id,
         friendId: req.body.userId,
-        status: 0
+        status: friendStatus.PENDING
     });
 
     res.sendStatus(201);
@@ -17,7 +18,7 @@ exports.acceptFriendRequest = async (req, res, next) => {
 
     try {
         await Friend.update({
-            status: 1
+            status: friendStatus.ACCEPTED
         },
         {
             where: {
@@ -32,7 +33,7 @@ exports.acceptFriendRequest = async (req, res, next) => {
         await Friend.create({
             userId: req.user.id,
             friendId: userId,
-            status: 1
+            status: friendStatus.ACCEPTED
         },
         {
             transaction: transaction

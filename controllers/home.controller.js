@@ -1,5 +1,6 @@
 const { User, Friend } = require('../models/index');
 const { Op } = require("sequelize");
+const friendStatus = require('../helper/friendStatuses');
 
 exports.index = async (req, res, next) => {
     let friends = await User.findAll({
@@ -8,7 +9,7 @@ exports.index = async (req, res, next) => {
             as: 'Friend',
             where: {
                 userId: req.user.id,
-                status: 1
+                status: friendStatus.ACCEPTED
             },
             attributes: []
         }
@@ -20,7 +21,7 @@ exports.index = async (req, res, next) => {
             as: 'Me', 
             where: {
                 friendId: req.user.id,
-                status: 0
+                status: friendStatus.PENDING
             },
             attributes: []
         }
