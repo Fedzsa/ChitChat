@@ -125,6 +125,8 @@ main {
 .friend-list ul li {
   padding: 5px;
   color: white;
+  display: flex;
+  justify-content: space-between;
 }
 
 .friend-list ul li:hover {
