@@ -43,6 +43,7 @@ html, body {
   width: 200px;
   z-index: 1;
   background-color: #474e55;
+  overflow-y: auto;
 }
 
 main {
@@ -78,6 +79,11 @@ main {
 .list-group-item.active {
   background-color: #535c64 !important;
   border-color: #535c64 !important;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
 }
 
 .search-box {
@@ -123,4 +129,24 @@ main {
 
 .friend-list ul li:hover {
   background-color: #5d67708f;
+}
+
+#relationship-accordion button {
+  padding: 0;
+  color: white;
+}
+
+#relationship-accordion .card {
+  border-radius: 0;
+  background-color: #535c64;
+}
+
+#relationship-accordion .card .card-body {
+  padding: 0;
+  background-color: #474e55;
+}
+
+.no-content {
+  color: white;
+  text-align: center;
 }
