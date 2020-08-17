@@ -60,7 +60,7 @@ function addFriend(event) {
     })
     .then(response => {
         if(response.ok) {
-            console.log('ok');
+            event.target.parentNode.remove();
         }
     })
     .catch(error => console.log(`Error: ${error}`));
