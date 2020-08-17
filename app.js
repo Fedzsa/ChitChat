@@ -17,6 +17,7 @@ const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const signupRouter = require('./routes/signup');
 const logoutRouter = require('./routes/logout');
+const userRouter = require('./routes/user');
 
 // Set port
 app.set('port', appConfig.APP_PORT);
@@ -59,6 +60,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 app.use('/logout', logoutRouter);
+app.use('/users', userRouter);
 
 // Create HTTP server
 const server = http.createServer(app);
