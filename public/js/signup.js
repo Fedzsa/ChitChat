@@ -18,13 +18,12 @@ signupForm.addEventListener('submit', (event) => {
         body: JSON.stringify(data)
     })
     .then(response => {
-        console.log(response);
-        response.json();
+        if(response.ok) {
+            window.location.href = '/login';
+        }
     })
-    .then(data => {
-        console.log(data);
-        insertValidationErrors(data);
-    })
+    .then(response => response.json())
+    .then(data => insertValidationErrors(data))
     .catch(error => console.error(`Error: ${error}`));
 });
 
