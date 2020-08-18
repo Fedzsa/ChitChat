@@ -105,3 +105,35 @@ function declineRequest(event) {
     })
     .catch(error => console.error(error));
 }
+const searchFriendInput = document.getElementById('search-friend-input');
+
+searchFriendInput.addEventListener('keyup', (event) => {
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+        clearFriendList();
+        getFriends(event.target.value);
+    }, 500);
+});
+
+function getFriends(search) {
+    fetch(`/friends?search=${search}`)
+    .then(response => response.json())
+    .then(data => createFriendList(data))
+    .catch(error => console.error(error));
+}
+
+function createFriendList(friends) {
+    let friendList = document.getElementById('friend-list');
+
+    friends.forEach((value) => {
+        let li = document.createElement('li');
+        li.classList.add('friend-item');
+        li.innerHTML = value.username;
+        friendList.appendChild(li);
+    });
+}
+
+function clearFriendList() {
+    document.getElementById('friend-list').innerHTML = '';
+}
