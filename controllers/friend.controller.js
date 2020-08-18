@@ -49,3 +49,20 @@ exports.acceptFriendRequest = async (req, res, next) => {
 
     res.sendStatus(200);
 };
+
+exports.declineFriendRequest = async (req, res, next) => {
+    let { userId } = req.body;
+
+    await Friend.update(
+        {
+            status: friendStatus.DECLINED
+        },
+        {
+            where: {
+                userId: userId,
+                friendId: req.user.id
+            }
+        });
+
+    res.sendStatus(200);
+};
