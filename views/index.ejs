@@ -76,10 +76,12 @@
 
                 <div id="collapseRequestList" class="collapse" aria-labelledby="headingOne" data-parent="#relationship-accordion">
                   <div class="card-body">
-                    <% if(friendRequests.length < 1) { %>
-                      <span class="no-content">No friend request</span>
-                    <% } else { %>
-                      <ul id="friend-request-list">
+                    <ul id="friend-request-list">
+                      <% if(friendRequests.length < 1) { %>
+                        <li>
+                          <span class="no-content">No friend request</span>
+                        </li>
+                      <% } else { %>
                         <% friendRequests.forEach((value) => { %>
                           <li class="friend-item">
                             <span>
@@ -91,8 +93,8 @@
                             </div>
                           </li>
                         <% }) %>
-                      </ul>
-                    <% } %>
+                      <% } %>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -108,22 +110,23 @@
 
                 <div id="collapseFriendList" class="collapse show" aria-labelledby="headingOne" data-parent="#relationship-accordion">
                   <div class="card-body">
-                    <% if(friends.length < 1) { %>
-                      <span class="no-content">No friends</span>
-                    <% } else { %>
-                      <ul id="friend-list">
+                    <ul id="friend-list">
+                      <% if(friends.length < 1) { %>
+                        <li class="friend-item">
+                          <span class="no-content">No friend</span>
+                        </li>
+                      <% } else { %>
                         <% friends.forEach((value) => { %>
                           <li class="friend-item">
                             <%= value.username %>
                           </li>
                         <% }) %>
-                      </ul>
-                    <% } %>
+                      <% } %>
+                    </ul>
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
 
           <div id="add-friend" class="tab-pane fade" role="tabpanel" aria-labelledby="list-add-friend">
