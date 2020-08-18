@@ -1,6 +1,7 @@
-const { Friend } = require('../models/index');
+const { User, Friend } = require('../models/index');
 const sequelize = require('../models/index').sequelize;
 const friendStatus = require('../helper/friendStatuses');
+const { Op } = require("sequelize");
 
 exports.storeFriendRequest = async (req, res, next) => {
     await Friend.create({
@@ -65,4 +66,27 @@ exports.declineFriendRequest = async (req, res, next) => {
         });
 
     res.sendStatus(200);
+};
+
+exports.getFriends = async (req, res, next) => {
+    let { search } = req.query;
+
+    let friends = await User.findAll({
+        include: {
+            model: Friend, 
+            as: 'Friend',
+            where: {
+                userId: req.user.id,
+                status: friendStatus.ACCEPTED
+            },
+            attributes: []
+        },
+        where: {
+            username: {
+                [Op.substring]: search
+            }
+        }
+    });
+
+    res.status(200).json(friends);
 };
