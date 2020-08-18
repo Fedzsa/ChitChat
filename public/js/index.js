@@ -85,3 +85,23 @@ function acceptRequest(event) {
     })
     .catch(error => console.error(error));
 }
+
+function declineRequest(event) {
+    let userId = event.target.getAttribute('data-user-id');
+
+    fetch(`/friends/request/decline`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: userId
+        })
+    })
+    .then(response => {
+        if(response.ok) {
+            event.target.parentNode.parentNode.remove();
+        }
+    })
+    .catch(error => console.error(error));
+}
