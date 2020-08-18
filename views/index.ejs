@@ -87,7 +87,7 @@
                             </span>
                             <div>
                               <button class="btn btn-success" data-user-id="<%= value.id %>" onclick="acceptRequest(event)">Accept</button>
-                              <button class="btn btn-danger" data-user-id="<%= value.id %>">Decline</button>
+                              <button class="btn btn-danger" data-user-id="<%= value.id %>" onclick="declineRequest(event)">Decline</button>
                             </div>
                           </li>
                         <% }) %>
