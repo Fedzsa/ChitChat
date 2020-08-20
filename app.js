@@ -19,6 +19,7 @@ const signupRouter = require('./routes/signup');
 const logoutRouter = require('./routes/logout');
 const userRouter = require('./routes/user');
 const friendRouter = require('./routes/friend');
+const chatRouter = require('./routes/chat');
 
 // Set port
 app.set('port', appConfig.APP_PORT);
@@ -28,16 +29,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Use middlewares
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
-app.use(session({
+
+// session middleware
+const sessionMiddleware = session({
   secret: appConfig.SESSION_SECRET_KEY,
   saveUninitialized: true,
   resave: true
-}));
+});
+
+app.use(sessionMiddleware);
 
 // Use flash for authenticate flash messages
 app.use(flash());
@@ -63,17 +68,12 @@ app.use('/signup', signupRouter);
 app.use('/logout', logoutRouter);
 app.use('/users', userRouter);
 app.use('/friends', friendRouter);
+app.use('/chats', chatRouter);
 
 // Create HTTP server
 const server = http.createServer(app);
 
-// Setup Socket.IO
-const io = require('socket.io')(server);
-io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
-  });
-});
+const io = require('./websocket/socketio').listen(server, { sessionMiddleware });
 
 // Run server in localhost:3000
 server.listen(process.env.APP_PORT, () => {
