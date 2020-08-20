@@ -137,3 +137,19 @@ function createFriendList(friends) {
 function clearFriendList() {
     document.getElementById('friend-list').innerHTML = '';
 }
+
+const chatHistoryPanels = document.querySelectorAll('#chat-history div[data-room-id]');
+
+chatHistoryPanels.forEach((value) => {
+    value.addEventListener('click', event => navigateToChat(value.dataset.roomId));
+});
+
+function navigateToChat(roomId) {
+    window.location.href = `/chats/${roomId}`;
+}
+
+const socketIO = io();
+
+socketIO.on('connect', () => {
+    console.log('connected');
+});
