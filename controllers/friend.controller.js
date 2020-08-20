@@ -2,6 +2,8 @@ const { User, Friend } = require('../models/index');
 const sequelize = require('../models/index').sequelize;
 const friendStatus = require('../helper/friendStatuses');
 const { Op } = require("sequelize");
+const RoomService = require('../services/room.service');
+const FriendServices = require('../services/friend.service');
 
 exports.storeFriendRequest = async (req, res, next) => {
     await Friend.create({
@@ -15,38 +17,13 @@ exports.storeFriendRequest = async (req, res, next) => {
 
 exports.acceptFriendRequest = async (req, res, next) => {
     let { userId } = req.body;
-    let transaction = await sequelize.transaction();
 
     try {
-        await Friend.update({
-            status: friendStatus.ACCEPTED
-        },
-        {
-            where: {
-                userId: userId,
-                friendId: req.user.id
-            }
-        },
-        {
-            transaction: transaction
-        });
-
-        await Friend.create({
-            userId: req.user.id,
-            friendId: userId,
-            status: friendStatus.ACCEPTED
-        },
-        {
-            transaction: transaction
-        });
-
-        await transaction.commit();
+        await FriendServices.acceptFriendRequest(require.user.id, userId);
+        await RoomService.createPrivateRoom(req.user.id, userId);
     } catch(error) {
-        await transaction.rollback();
-
         return res.sendStatus(500);
     }
-
 
     res.sendStatus(200);
 };
