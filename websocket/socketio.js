@@ -18,9 +18,17 @@ module.exports.listen = (server, { sessionMiddleware }) => {
         }
     });
 
+    let clients = [];
+
     // Setup Socket.IO
     io.on('connection', async (socket) => {
         console.log(`New client connected with ID ${socket.id}`);
+        clients.push(socket.request.user.id);
+
+        socket.on('online', () => {
+            console.log(`${socket.request.user.username} is online`);
+            io.emit('online', clients);
+        });
         
         socket.on('chat room', room => {
             console.log(`Client join the ID ${room} room`)
@@ -34,6 +42,8 @@ module.exports.listen = (server, { sessionMiddleware }) => {
         });
 
         socket.on('disconnect', () => {
+            clients = clients.filter(x => x !== socket.request.user.id);
+            io.emit('online', clients);
             console.log(`Client disconnected with ID ${socket.id}`);
         })
     });

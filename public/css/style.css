@@ -128,6 +128,7 @@ main {
   color: white;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .friend-list ul li:hover {
@@ -215,4 +216,18 @@ main {
 
 .chat-header {
   background-color: #535c64;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 25px;
+}
+
+.status-offline {
+  background-color: #dc3545;
+}
+
+.status-online {
+  background-color: #28a745;
 }

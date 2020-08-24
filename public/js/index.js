@@ -1,3 +1,4 @@
+const socketIO = io();
 const searchNewFriendInput = document.getElementById('search-new-friend-input');
 let timeout = null;
 
@@ -147,9 +148,3 @@ chatHistoryPanels.forEach((value) => {
 function navigateToChat(roomId) {
     window.location.href = `/chats/${roomId}`;
 }
-
-const socketIO = io();
-
-socketIO.on('connect', () => {
-    console.log('connected');
-});

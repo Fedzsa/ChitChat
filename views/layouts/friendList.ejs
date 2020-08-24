@@ -64,8 +64,10 @@
                                     </li>
                                 <% } else { %>
                                     <% friends.forEach((value) => { %>
-                                        <li class="friend-item" data-room-id="<%= value.Rooms[0].id %>">
+                                        <li class="friend-item" data-user-id="<%= value.id %>" data-room-id="<%= value.Rooms[0].id %>">
                                             <%= value.username %>
+
+                                            <div class="dot status-offline"></div>
                                         </li>
                                     <% }) %>
                                 <% } %>
