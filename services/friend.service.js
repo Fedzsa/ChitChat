@@ -1,4 +1,4 @@
-const { User, Friend } = require('../models/index');
+const { User, Friend, Room } = require('../models/index');
 const friendStatus = require('../helper/friendStatuses');
 const { Op } = require("sequelize");
 
@@ -38,15 +38,21 @@ exports.acceptFriendRequest = async (who, whom) => {
 
 exports.getUserFriends = async (userId, search = '') => {
     return await User.findAll({
-        include: {
-            model: Friend, 
-            as: 'Friend',
-            where: {
-                userId: userId,
-                status: friendStatus.ACCEPTED
+        include: [
+            {
+                model: Friend, 
+                as: 'Friend',
+                where: {
+                    userId: userId,
+                    status: friendStatus.ACCEPTED
+                },
+                attributes: []
             },
-            attributes: []
-        },
+            {
+                model: Room,
+                attributes: ['id']
+            }
+        ],
         where: {
             username: {
                 [Op.substring]: search

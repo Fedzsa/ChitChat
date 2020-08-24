@@ -57,19 +57,19 @@
 
                     <div id="collapseFriendList" class="collapse show" aria-labelledby="headingOne" data-parent="#relationship-accordion">
                         <div class="card-body">
-                        <ul id="friend-list">
-                            <% if(friends.length < 1) { %>
-                                <li class="friend-item">
-                                    <span class="no-content">No friend</span>
-                                </li>
-                            <% } else { %>
-                                <% friends.forEach((value) => { %>
-                                    <li class="friend-item" data-user-id="<%= value.id %>">
-                                    <%= value.username %>
+                            <ul id="friend-list">
+                                <% if(friends.length < 1) { %>
+                                    <li class="friend-item">
+                                        <span class="no-content">No friend</span>
                                     </li>
-                                <% }) %>
-                            <% } %>
-                        </ul>
+                                <% } else { %>
+                                    <% friends.forEach((value) => { %>
+                                        <li class="friend-item" data-room-id="<%= value.Rooms[0].id %>">
+                                            <%= value.username %>
+                                        </li>
+                                    <% }) %>
+                                <% } %>
+                            </ul>
                         </div>
                     </div>
                 </div>
