@@ -1,20 +1,20 @@
-<div class="container">
+<header id="header" class="container-fluid bg-dark shadow header">
   <div class="row">
     <div class="col">
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">ChitChat</a>
+      <nav class="navbar navbar-expand-md navbar-dark">
+        <a class="navbar-brand" href="/">ChitChat</a>
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
         </div>
-        <% if(!user) { %>
+        <% if(!currentUser) { %>
           <a class="btn btn-outline-primary" href="/login">Login</a>
           <a class="btn btn-outline-primary ml-2" href="/signup">Sign up</a>
         <% } else { %>
-          <h5 class="float-right text-light">Hello <%= user.username %>!</h5>
+          <h5 class="float-right text-light m-0">Hello <%= currentUser.username %>!</h5>
           <a class="btn btn-outline-primary float-right ml-2" href="/logout" name="logout">Logout</a>
         <% } %>
       </nav>
     </div>
   </div>
-</div>
+</header>

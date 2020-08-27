@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <%- include('layouts/head') %>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <%- include('layouts/header') %>
+
+    <%- include('layouts/friendList') %>
+    
+    <main id="chat" data-room-id="<%= room.id %>">
+        <div class="container-fluid h-100">
+            <div class="row h-10 chat-header">
+                <div class="col p-2">
+                    <h4>
+                        <% if(room.name) { %>
+                            <%= room.name %>
+                        <% } else { %>
+                            <%= room.Users.map(x => x.username).join(', ') %>
+                        <% } %>
+                    </h4>
+                </div>
+            </div>
+            <div class="row h-80">
+                <div class="col p-0">
+                    <div id="chat-window" class="h-100">
+
+                        <% messages.forEach((value) => { %>
+                            <% if(value.userId === currentUser.id) { %>
+                                <div class="bg-success float-right message">
+                                    <%= value.message %>
+                                </div>
+                            <% } else { %>
+                                <div class="bg-primary float-left message">
+                                    <%= value.message %>
+                                </div>
+                            <% } %>
+                        <% }) %>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row h-10">
+                <div class="col p-0">
+                    <input id="chat-textarea" type="text" placeholder="Write here...">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/js/chat.js"></script>
+    <script src="/static/js/friendList.js"></script>
+    <%- include('layouts/footer') %>
+</body>
+</html>

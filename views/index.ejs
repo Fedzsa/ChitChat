@@ -1,79 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% include layouts/head %>
+    <%- include('layouts/head') %>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-      $(document).ready(() => {
-        const socket = io();
-
-        $('#message-form').submit(() => {
-          var $msg = $('#message');
-
-          if($msg.val() != '') {
-            var time = new Date($.now());
-            socket.emit('chat message', {from: $('#username').val(), message: $msg.val(), time: `${time.getHours()}:${time.getMinutes()}`});
-            $msg.val('');
-          }
-          return false;
-        });
-
-        socket.on('chat message', function(msg){
-
-          if(msg.from == $('#username').val()) {
-            $('.chat').append(`
-                <div class="row">
-                  <div class="col">
-                    <div class="float-right align-content-end">
-                      <h6 class="ml-1">${msg.from}</h6>
-                      <div class="p-2 rounded shadow" style="width: max-content; width: -moz-max-content; max-width: 400px; overflow-x: auto; background-color: #007bff; color: white">${msg.message}</div>
-                      <small>Elküldve ekkor: ${msg.time}</small>
-                    </div>
-                  </div>
-                </div>
-              `);
-          } else {
-            $('.chat').append(`
-                <div class="row">
-                  <div class="col">
-                    <h6 class="ml-1">${msg.from}</h6>
-                    <div class="m-2 p-2 rounded shadow" style="width: max-content; width: -moz-max-content; background-color: green; color: white">${msg.message}</div>
-                    <small>Elküldve ekkor: ${msg.time}</small>
-                  </div>
-                </div>
-              `);
-          }
-          $('.chat').scrollTop($('.chat').prop('scrollHeight'));
-        });
-      });
-    </script>
   </head>
   <body>
-    <% include layouts/header %>
+      <%- include('layouts/header') %>
 
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col">
-          <div class="chat shadow container" style="overflow-y: scroll; overflow-x: auto"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <form id="message-form" class="form mt-2" action="" method="post">
-            <div class="row">
-              <input id="username" type="hidden" name="username" value="<%= user.username %>">
-              <div class="col">
-                <input id="message" class="form-control w-100" type="text" name="message" placeholder="Write the message here...">
-              </div>
-              <div class="col-1">
-                <input class="btn btn-primary float-right w-100" type="submit" value="Send">
+      <%- include('layouts/friendList') %>
+  
+      <main id="chat">
+        <div class="container-fluid h-100">
+          <div class="row">
+            <div class="col">
+              <div id="chat-history" class="container mt-3">
+                <% rooms.forEach((value) => { %>
+                  <div class="row p-3 bg-dark" data-room-id="<%= value.id %>" >
+                    <div class="col-2 p-2">
+                      <% if(value.name) { %>
+                        <%= value.name %>
+                      <% } else { %>
+                        <%= value.Users.map(x => x.username ) %>
+                      <% } %>
+                    </div>
+                    <div class="col p-2">
+                      <%= value.Messages[0].message %>
+                    </div>
+                    <div class="col-2 p-2">
+                      <%= moment(value.Messages[0].createdAt).fromNow() %>
+                    </div>
+                  </div>
+                <% }) %>
               </div>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
-    </div>
+        
+      </main>
 
-    <% include layouts/footer %>
+    <script src="/static/js/index.js"></script>
+    <script src="/static/js/friendList.js"></script>
+    <%- include('layouts/footer') %>
   </body>
 </html>

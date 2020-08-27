@@ -1,27 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const uuidv4 = require('uuid/v4');
-const bcrypt = require('bcryptjs');
-const { check, validationResult } = require('express-validator/check');
-const con = require('../db');
+const { body } = require('express-validator');
+const { User } = require('../models/index');
 
-// GET, POST Sign up page
-router.route('/').get((req, res, next) => {
-  res.render('registration');
-}).post((req, res, next) => {
-  // Registration occured
+const SignUpController = require('../controllers/signup.controller');
 
-  bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash(req.body.password, salt, function(err, hash) {
-        con.query(`
-          INSERT INTO users (id, username, email, password) VALUES ('${uuidv4()}', '${req.body.username}', '${req.body.email}', '${hash}')
-          `, (error) => {
-            if(error) throw error;
-          });
-    });
-  });
+router.get('/', SignUpController.index);
+router.post('/', [
+  body('username').notEmpty().isString().custom((value, { req }) => {
+    return User.findOne({ where: { username: req.body.username } }).then(user => {
+      if(user) throw new Error('Username already in use');
+    })
+  }),
+  body('email').notEmpty().isString().isEmail().custom((value, { req }) => {
+    return User.findOne({ where: { email: req.body.email } }).then(user => {
+      if(user) throw new Error('Email already in use');
+    })
+  }),
+  body('password').notEmpty().isString(),
+  body('confirmPassword').notEmpty().isString().custom((value, { req }) => {
+    if(value !== req.body.password) {
+      throw new Error('Password confirmation does not match password');
+    }
 
-  res.redirect('/login');
-});
+    return true;
+  })
+], SignUpController.store);
 
 module.exports = router;

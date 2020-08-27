@@ -1,14 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const con = require('../db');
-const passport = require('../auth');
+const passport = require('../passport/localStrategy');
+const LoginController = require('../controllers/login.controller');
 
-// GET Login page
-router.route('/').get((req, res, next) => {
-  // Display login screen
-  res.render('login');
-}).post(passport.authenticate('local', {
-  successRedirect: '/home',
+router.get('/', LoginController.index);
+router.post('/', passport.authenticate('local', {
+  successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: true
 }));

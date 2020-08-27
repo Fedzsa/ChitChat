@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('layouts/head') %>
+  </head>
+  <body class="text-center">
+	<%- include('layouts/header') %>
+	
+	<div class="card auth-card p-3 shadow">
+		<h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
+		<hr>
+		<div id="errors"></div>
+		<form id="signup-form" class="auth-form">
+			<input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus />
+			<input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required />
+			<input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required />
+			<input type="password" id="inputConfirmPassword" name="confirmPassword" class="form-control" placeholder="Password Again" required />
+
+			<input type="submit" id="signup-button" class="btn btn-lg btn-primary btn-block" value="Sign up" />
+		</form>
+	</div>
+
+	<script src="/js/signup.js"></script>
+    <%- include('layouts/footer') %>
+  </body>
+</html>

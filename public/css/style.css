@@ -1,5 +1,233 @@
-.chat {
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.auth-card {
+  width: 20rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.auth-form * {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.invalid-message {
   width: 100%;
-  height: 300px;
-  border: 1px solid grey;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.invalid-input {
+  border-color: #dc3545 !important;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  height: 55px;
+  z-index: 2;
+}
+
+.friend-list {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  margin-top: 55px;
+  width: 200px;
+  z-index: 1;
+  background-color: #474e55;
+  overflow-y: auto;
+  border-right: 1px solid #343a40;
+}
+
+main {
+  position: fixed;
+  width: 100%;
+  top: 55px;
+  left: 200px;
+  bottom: 0;
+}
+
+.btn {
+  border-radius: 0 !important;
+}
+
+.btn:focus, .btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#list-tab a {
+  border-radius: 0 !important;
+  text-align: center;
+}
+
+.list-group-item {
+  background-color: #474e55 !important;
+}
+
+.list-group-item-action {
+  color: white !important;
+}
+
+.list-group-item.active {
+  background-color: #535c64 !important;
+  border-color: #535c64 !important;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-box {
+  padding: 10px;
+  background-color: #5d67708f;
+  display: flex;
+  align-items: center;
+}
+
+.search-box i {
+  flex-grow: 1;
+  color: white;
+  margin: 2px;
+}
+
+.search-box input {
+  width: 100%;
+  border: none;
+  background-color: #ffffffc7;
+  transition: all 0.2s ease-in-out;
+  flex-grow: 2;
+  margin: 2px;
+  border-radius: 1rem;
+  padding: 0 10px;
+}
+
+.search-box input:focus {
+  background-color: white;
+  outline: none;
+  border: none;
+}
+
+.friend-list ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.friend-list ul li {
+  padding: 5px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.friend-list ul li:hover {
+  background-color: #5d67708f;
+  cursor: pointer;
+}
+
+#relationship-accordion button {
+  padding: 0;
+  color: white;
+}
+
+#relationship-accordion .card {
+  border-radius: 0;
+  background-color: #535c64;
+}
+
+#relationship-accordion .card .card-body {
+  padding: 0;
+  background-color: #474e55;
+}
+
+.no-content {
+  color: white;
+  text-align: center;
+}
+
+.h-80 {
+  height: 80%;
+}
+
+.h-10 {
+  height: 10%;
+}
+
+#chat {
+  background-color: #474e55;
+  width: calc(100% - 200px);
+}
+
+#chat input {
+  width: 100%;
+  height: 100%;
+  background-color: #5d67708f;
+  outline: none;
+  border: none;
+  color: white;
+  padding: 5px;
+}
+
+#chat input:active, #chat input:focus {
+  outline: none;
+  border: none;
+}
+
+#chat input::placeholder {
+  color: white;
+}
+
+#chat-window {
+  padding: 1rem 1rem 1rem 1rem;
+}
+
+#chat-window div {
+  clear: both;
+}
+
+.message {
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: max-content;
+  max-width: 50%;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+#chat-history .row:hover {
+  cursor: pointer;
+  background-color: #535c64 !important;
+}
+
+main {
+  color: white;
+}
+
+.chat-header {
+  background-color: #535c64;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 25px;
+}
+
+.status-offline {
+  background-color: #dc3545;
+}
+
+.status-online {
+  background-color: #28a745;
 }

@@ -1,0 +1,89 @@
+<div id="friend-list-panel" class="friend-list">
+    <div id="list-tab" class="list-group list-group-horizontal" role="tablist">
+        <a href="#list-friends" class="list-group-item list-group-item-action active fas fa-user" data-toggle="list" role="tab" aria-controls="friends"></a>
+        <a href="#add-friend" class="list-group-item list-group-item-action fas fa-user-plus" data-toggle="list" role="tab" aria-controls="add-friend"></a>
+    </div>
+
+    <div id="nav-tabContent" class="tab-content">
+        <div id="list-friends" class="tab-pane fade show active" role="tabpanel" aria-labelledby="list-friends-list">
+            <div id="search-box" class="search-box">
+                <i class="fas fa-search"></i>
+                <input id="search-friend-input" type="text" name="search" placeholder="Search">
+            </div>
+
+            <div id="relationship-accordion" class="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">
+                            <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseRequestList" aria-expanded="true" aria-controls="collapseRequestList">
+                                Request list
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseRequestList" class="collapse" aria-labelledby="headingOne" data-parent="#relationship-accordion">
+                        <div class="card-body">
+                            <ul id="friend-request-list">
+                                <% if(friendRequests.length < 1) { %>
+                                    <li>
+                                        <span class="no-content">No friend request</span>
+                                    </li>
+                                <% } else { %>
+                                    <% friendRequests.forEach((value) => { %>
+                                        <li class="friend-item">
+                                            <span>
+                                                <%= value.username %>
+                                            </span>
+                                            <div>
+                                                <button class="btn btn-success" data-user-id="<%= value.id %>" onclick="acceptRequest(event)">Accept</button>
+                                                <button class="btn btn-danger" data-user-id="<%= value.id %>" onclick="declineRequest(event)">Decline</button>
+                                            </div>
+                                        </li>
+                                    <% }) %>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">
+                        <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseFriendList" aria-expanded="true" aria-controls="collapseFriendList">
+                            Friend list
+                        </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseFriendList" class="collapse show" aria-labelledby="headingOne" data-parent="#relationship-accordion">
+                        <div class="card-body">
+                            <ul id="friend-list">
+                                <% if(friends.length < 1) { %>
+                                    <li class="friend-item">
+                                        <span class="no-content">No friend</span>
+                                    </li>
+                                <% } else { %>
+                                    <% friends.forEach((value) => { %>
+                                        <li class="friend-item" data-user-id="<%= value.id %>" data-room-id="<%= value.Rooms[0].id %>">
+                                            <%= value.username %>
+
+                                            <div class="dot status-offline"></div>
+                                        </li>
+                                    <% }) %>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="add-friend" class="tab-pane fade" role="tabpanel" aria-labelledby="list-add-friend">
+            <div id="search-box" class="search-box">
+                <i class="fas fa-search"></i>
+                <input id="search-new-friend-input" type="text" name="search" placeholder="Search" autocomplete="off">
+            </div>
+            <ul id="user-list"></ul>
+        </div>
+    </div>
+</div>
